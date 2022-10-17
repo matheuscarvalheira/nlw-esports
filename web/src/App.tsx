@@ -65,12 +65,13 @@ function App() {
             </Dialog.Title>
 
             <Dialog.Content>
-              <form action="">
-                <div>
-                  <label htmlFor="game">Qual o game?</label>
+              <form className="mt-8">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="game" className="font-semibold">Qual o game?</label>
                   <input
                     id="game"
                     placeholder="Selecione o game que deseja jogar"
+                    className="bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500"
                   />
                 </div>
 
