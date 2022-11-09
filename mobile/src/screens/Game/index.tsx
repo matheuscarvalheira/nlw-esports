@@ -4,16 +4,19 @@ import { THEME } from "../../theme";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Heading } from "../../components/Heading";
 import { GameParams } from "../../@types/navigation";
 import { Entypo } from "@expo/vector-icons";
 
+import { Heading } from "../../components/Heading";
 import { Background } from "../../components/Background";
-import logoImg from "../../assets/logo-nlw-esports.png";
 import { DuoCard, DuoCardProps } from "../../components/DuoCard";
+import { DuoMatch } from '../../components/DuoMatch';
+
+import logoImg from "../../assets/logo-nlw-esports.png";
 
 export function Game() {
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
+  const [discordDuoSelected, setDiscordDuoSelected] = useState('matheus#6567');
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -69,6 +72,12 @@ export function Game() {
               Não há anúncios publicados para esse jogo ainda 🎮
             </Text>
           )}
+        />
+
+        <DuoMatch 
+          visible = {discordDuoSelected.length > 0}
+          discord = "matheus#6567"
+          onClose ={()=> setDiscordDuoSelected('')}
         />
       </SafeAreaView>
     </Background>
