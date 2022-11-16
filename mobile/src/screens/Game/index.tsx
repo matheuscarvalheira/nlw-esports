@@ -16,7 +16,7 @@ import logoImg from "../../assets/logo-nlw-esports.png";
 
 export function Game() {
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
-  const [discordDuoSelected, setDiscordDuoSelected] = useState('matheus#6567');
+  const [discordDuoSelected, setDiscordDuoSelected] = useState('');
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -25,6 +25,12 @@ export function Game() {
   function handleGoBack() {
     navigation.goBack();
   }
+
+  async function getDiscordUser(adsId: string){
+    fetch(`http://localhost:3333/ads/${adsId}/discord`)
+    .then((response) => response.json())
+    .then((data) => setDiscordDuoSelected(data.discord));
+  } 
 
   useEffect(() => {
     fetch(`http://localhost:3333/games/${game.id}/ads`)
@@ -62,7 +68,7 @@ export function Game() {
           data={duos}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <DuoCard data={item} onConnect={() => {}} />
+            <DuoCard data={item} onConnect={() => getDiscordUser(item.id)} />
           )}
           horizontal
           contentContainerStyle={[duos.length > 0 ? styles.contentList : styles.emptyListContent]}
@@ -76,7 +82,7 @@ export function Game() {
 
         <DuoMatch 
           visible = {discordDuoSelected.length > 0}
-          discord = "matheus#6567"
+          discord = {discordDuoSelected}
           onClose ={()=> setDiscordDuoSelected('')}
         />
       </SafeAreaView>
